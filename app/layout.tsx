@@ -10,11 +10,11 @@ import "./globals.css";
 
 const queryClient = new QueryClient();
 
-const { WALLECT_CONNECT_ID } = process.env;
+const { WALLET_CONNECT_ID } = process.env;
 
-const config = getDefaultConfig({
+export const config = getDefaultConfig({
   appName: "My RainbowKit App",
-  projectId: `${WALLECT_CONNECT_ID}`,
+  projectId: `${WALLET_CONNECT_ID}`,
   chains: [sepolia],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });

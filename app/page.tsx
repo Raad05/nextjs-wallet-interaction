@@ -1,5 +1,5 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { Metadata } from "next";
+import HomePage from "./components/HomePage/HomePage";
 
 export const metadata: Metadata = {
   title: "Wallet Interaction",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <ConnectButton></ConnectButton>
+      <HomePage></HomePage>
     </main>
   );
 }
