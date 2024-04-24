@@ -1,13 +1,25 @@
-import type { Metadata } from "next";
+"use client";
+
+import "@rainbow-me/rainbowkit/styles.css";
+import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { WagmiProvider } from "wagmi";
+import { sepolia } from "wagmi/chains";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const queryClient = new QueryClient();
 
-export const metadata: Metadata = {
-  title: "Wallet Interaction",
-  description: "Demo wallet interaction using rainbowkit wagmi",
-};
+const { WALLECT_CONNECT_ID } = process.env;
+
+const config = getDefaultConfig({
+  appName: "My RainbowKit App",
+  projectId: `${WALLECT_CONNECT_ID}`,
+  chains: [sepolia],
+  ssr: true, // If your dApp uses server side rendering (SSR)
+});
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -16,7 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider>{children}</RainbowKitProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </body>
     </html>
   );
 }

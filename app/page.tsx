@@ -1,36 +1,15 @@
-"use client";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import type { Metadata } from "next";
 
-import "@rainbow-me/rainbowkit/styles.css";
-import {
-  ConnectButton,
-  getDefaultConfig,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
-import { WagmiProvider } from "wagmi";
-import { sepolia } from "wagmi/chains";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
-
-const { WALLECT_CONNECT_ID } = process.env;
-
-const config = getDefaultConfig({
-  appName: "My RainbowKit App",
-  projectId: `${WALLECT_CONNECT_ID}`,
-  chains: [sepolia],
-  ssr: true, // If your dApp uses server side rendering (SSR)
-});
+export const metadata: Metadata = {
+  title: "Wallet Interaction",
+  description: "Demo wallet interaction using rainbowkit wagmi",
+};
 
 export default function Home() {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
-          <main>
-            <ConnectButton></ConnectButton>
-          </main>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <main>
+      <ConnectButton></ConnectButton>
+    </main>
   );
 }
