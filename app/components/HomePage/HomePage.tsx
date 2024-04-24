@@ -46,6 +46,7 @@ const HomePage = () => {
     }
   };
 
+  // edit greeter
   const editGreeter = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
