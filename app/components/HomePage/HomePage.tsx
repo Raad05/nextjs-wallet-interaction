@@ -1,14 +1,20 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import contractABI from "../../ABI/abi.json";
 import { config } from "@/app/layout";
-import { readContract } from "@wagmi/core";
+import {
+  readContract,
+  simulateContract,
+  waitForTransactionReceipt,
+  writeContract,
+} from "@wagmi/core";
 
 const HomePage = () => {
-  const [greeter, setGreeter] = useState<string>("");
+  const [greeter, setGreeter] = useState("");
   const [numbers, setNumbers] = useState<number[]>([]);
+  const [newGreeter, setNewGreeter] = useState("");
 
   // fetch greeter data
   const getGreeter = async () => {
@@ -40,6 +46,28 @@ const HomePage = () => {
     }
   };
 
+  const editGreeter = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const { request } = await simulateContract(config, {
+        abi: contractABI,
+        address: "0x9CDc77007a4dcab71F81Eb0180c3e644C59A7eA7",
+        functionName: "setGreeter",
+        args: [newGreeter],
+      });
+
+      const hash = await writeContract(config, request);
+
+      await waitForTransactionReceipt(config, { hash });
+
+      alert("Greeter updated!");
+      window.location.reload();
+      console.log(newGreeter);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     getGreeter();
     getNumbers();
@@ -49,6 +77,19 @@ const HomePage = () => {
     <div className="home-page">
       <ConnectButton></ConnectButton>
       <p>{greeter}</p>
+      <form>
+        <p>Update Greeting: </p>
+        <input
+          className="border border-black"
+          onChange={(e) => {
+            setNewGreeter(e.target.value);
+          }}
+          type="text"
+        />
+        <button className="border border-black" onClick={editGreeter}>
+          Change
+        </button>
+      </form>
       {numbers.map((number, idx) => (
         <span key={idx}>{number.toString()} </span>
       ))}
