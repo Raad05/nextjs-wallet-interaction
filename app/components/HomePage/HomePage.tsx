@@ -60,6 +60,7 @@ const HomePage = () => {
       const hash = await writeContract(config, request);
 
       await waitForTransactionReceipt(config, { hash });
+      console.log("Hello");
 
       alert("Greeter updated!");
       window.location.reload();
