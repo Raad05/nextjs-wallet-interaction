@@ -63,7 +63,6 @@ const HomePage = () => {
 
       alert("Greeter updated!");
       window.location.reload();
-      console.log(newGreeter);
     } catch (e) {
       console.log(e);
     }
