@@ -21,7 +21,7 @@ const HomePage = () => {
     try {
       const response = await readContract(config, {
         abi: contractABI,
-        address: "0x9CDc77007a4dcab71F81Eb0180c3e644C59A7eA7",
+        address: "0xB503517d42705102C17E51c25353880c04bbA05f",
         functionName: "getGreeter",
       });
 
@@ -36,7 +36,7 @@ const HomePage = () => {
     try {
       const response = await readContract(config, {
         abi: contractABI,
-        address: "0x9CDc77007a4dcab71F81Eb0180c3e644C59A7eA7",
+        address: "0xB503517d42705102C17E51c25353880c04bbA05f",
         functionName: "getNumbers",
       });
 
@@ -52,7 +52,7 @@ const HomePage = () => {
     try {
       const { request } = await simulateContract(config, {
         abi: contractABI,
-        address: "0x9CDc77007a4dcab71F81Eb0180c3e644C59A7eA7",
+        address: "0xB503517d42705102C17E51c25353880c04bbA05f",
         functionName: "setGreeter",
         args: [newGreeter],
       });
@@ -60,7 +60,6 @@ const HomePage = () => {
       const hash = await writeContract(config, request);
 
       await waitForTransactionReceipt(config, { hash });
-      console.log("Hello");
 
       alert("Greeter updated!");
       window.location.reload();
