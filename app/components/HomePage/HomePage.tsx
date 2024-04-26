@@ -3,13 +3,13 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { MouseEvent, useEffect, useState } from "react";
 import contractABI from "../../ABI/abi.json";
-import { config } from "@/app/layout";
 import {
   readContract,
   simulateContract,
   waitForTransactionReceipt,
   writeContract,
 } from "@wagmi/core";
+import { config } from "@/app/layout";
 
 const HomePage = () => {
   const [greeter, setGreeter] = useState("");
